@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Color: warm notebook palette, not the AI-default cream/terracotta ---- */
+  --color-paper: #FBF8F2;
+  --color-paper-dim: #F3EEE2;
+  --color-ink: #1E2749;
+  --color-ink-soft: #3B4570;
+  --color-ink-faint: #8890AC;
+
+  --color-marigold: #F2A93B;
+  --color-marigold-dark: #D98F1F;
+  --color-marigold-light: #FCE7BF;
+
+  --color-sage: #6F9955;
+  --color-sage-dark: #56793F;
+  --color-sage-light: #E1EBD6;
+
+  --color-redpen: #C1502E;
+  --color-redpen-light: #F6E2D8;
+
+  /* ---- Type ---- */
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+  --font-tag: "JetBrains Mono", ui-monospace, monospace;
+
+  /* ---- Radius: soft, notebook-ish, never sharp corporate zero-radius ---- */
+  --radius-card: 0.9rem;
+  --radius-pill: 999px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Visible keyboard focus, everywhere */
+  :focus-visible {
+    outline: 2px solid var(--color-marigold-dark);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* Notebook-margin rule, used sparingly for lesson/content blocks */
+  .margin-rule {
+    border-left: 3px solid var(--color-marigold);
+    padding-left: 1rem;
+  }
+}
