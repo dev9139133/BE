@@ -1,4 +1,4 @@
-# Bewakoof English — V1 Foundation
+# Bewakoof English — V1 Foundation 
 
 An English-learning platform built around Dev Kumar's existing YouTube and
 blog content. This is Stage 1: the foundation only (see report below for
