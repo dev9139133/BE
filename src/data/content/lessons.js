@@ -31,7 +31,7 @@ export const lessons = [
         id: 'act-3',
         type: 'video',
         content: {
-          youtubeId: 'dQw4w9WgXcQ',
+          youtubeId: null,
           caption: 'Watch: Present Simple explained in 4 minutes (Bewakoof English)',
         },
       },
