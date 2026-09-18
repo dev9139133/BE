@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { getLessonById, getModuleWithCourse } from '../data/contentApi.js';
 import ActivityRenderer from '../components/lesson/ActivityRenderer.jsx';
@@ -8,11 +9,30 @@ export default function LessonDetailPage() {
   const { lessonId } = useParams();
   const lesson = getLessonById(lessonId);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [finished, setFinished] = useState(false);
+
+  // Reset the stepper whenever the learner navigates to a different lesson.
+  // (State adjustment during render, per React's guidance, rather than an
+  // effect — avoids an extra render pass just to reset two values.)
+  const [trackedLessonId, setTrackedLessonId] = useState(lessonId);
+  if (lessonId !== trackedLessonId) {
+    setTrackedLessonId(lessonId);
+    setCurrentIndex(0);
+    setFinished(false);
+  }
+
   if (!lesson) {
     return <Navigate to="/lessons" replace />;
   }
 
   const moduleInfo = getModuleWithCourse(lesson.moduleId);
+  const total = lesson.activities.length;
+  const isFirst = currentIndex === 0;
+  const isLast = currentIndex === total - 1;
+  const progressPercent = finished
+    ? 100
+    : Math.round(((currentIndex + 1) / total) * 100);
 
   return (
     <section className="px-4 py-10 sm:px-6">
@@ -40,23 +60,79 @@ export default function LessonDetailPage() {
         </h1>
         <p className="mt-2 font-body text-base text-ink-soft">{lesson.description}</p>
 
-        {/* Activities, rendered in order from data — nothing here is hard-coded per lesson */}
-        <div className="mt-8 space-y-6">
-          {lesson.activities.map((activity) => (
-            <ActivityRenderer key={activity.id} activity={activity} />
-          ))}
-        </div>
-
-        <div className="mt-10 flex flex-col gap-3 border-t border-ink/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-body text-sm text-ink-faint">
-            Nice work finishing this lesson.
-          </p>
-          <div className="flex gap-3">
-            <Button to="/lessons" variant="ghost">
-              Back to all lessons
-            </Button>
+        {/* Progress: activity count + bar */}
+        <div className="mt-7">
+          <div className="flex items-center justify-between">
+            <span className="font-tag text-xs uppercase tracking-wide text-ink-faint">
+              {finished ? 'Lesson complete' : `Activity ${currentIndex + 1} of ${total}`}
+            </span>
+          </div>
+          <div className="mt-2 h-2 w-full overflow-hidden rounded-pill bg-paper-dim">
+            <div
+              className="h-full rounded-pill bg-marigold transition-all duration-300"
+              style={{ width: `${progressPercent}%` }}
+            />
           </div>
         </div>
+
+        {/* One activity at a time, rendered through the existing ActivityRenderer —
+            still fully data-driven, no lesson-specific branching. */}
+        {!finished ? (
+          <>
+            <div className="mt-6">
+              <ActivityRenderer activity={lesson.activities[currentIndex]} />
+            </div>
+
+            <div className="mt-8 flex items-center gap-3">
+              <Button
+                variant="ghost"
+                onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
+                disabled={isFirst}
+                className={isFirst ? 'invisible' : ''}
+              >
+                &larr; Previous
+              </Button>
+
+              <div className="ml-auto">
+                {isLast ? (
+                  <Button variant="accent" onClick={() => setFinished(true)}>
+                    Finish Lesson
+                  </Button>
+                ) : (
+                  <Button
+                    variant="primary"
+                    onClick={() => setCurrentIndex((i) => Math.min(total - 1, i + 1))}
+                  >
+                    Next &rarr;
+                  </Button>
+                )}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="mt-6 flex flex-col items-center rounded-card border border-sage/30 bg-sage-light px-6 py-12 text-center">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-sage-dark text-2xl text-white">
+              &#10003;
+            </span>
+            <h2 className="mt-4 font-display text-2xl font-semibold text-ink">
+              Lesson complete!
+            </h2>
+            <p className="mt-1.5 font-body text-base text-ink-soft">
+              You've finished this lesson. Great work!
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              {moduleInfo?.course && (
+                <Button to={`/courses/${moduleInfo.course.id}`} variant="primary">
+                  Back to {moduleInfo.course.title}
+                </Button>
+              )}
+              <Button to="/lessons" variant="ghost">
+                Browse all lessons
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
