@@ -153,7 +153,7 @@ export const lessons = [
         id: 'act-2',
         type: 'video',
         content: {
-          youtubeId: 'dQw4w9WgXcQ',
+          youtubeId: null,
           caption: 'Watch: A real shop conversation, slowed down',
         },
       },
