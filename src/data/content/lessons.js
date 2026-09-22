@@ -8,7 +8,7 @@ export const lessons = [
     title: 'Present Simple: Talking About Now',
     description: 'The most useful tense in English — for facts, habits, and routines.',
     order: 1,
-    estimatedMinutes: 12,
+    estimatedMinutes: 15,
     category: 'grammar',
     activities: [
       {
