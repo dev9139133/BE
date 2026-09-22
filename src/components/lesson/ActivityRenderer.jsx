@@ -5,6 +5,7 @@ import VocabularyBlock from './activities/VocabularyBlock.jsx';
 import ReadingBlock from './activities/ReadingBlock.jsx';
 import McqQuizBlock from './activities/McqQuizBlock.jsx';
 import SummaryBlock from './activities/SummaryBlock.jsx';
+import FillInBlankBlock from './activities/FillInBlankBlock.jsx';
 
 /**
  * Maps an activity's `type` to its renderer component.
@@ -19,6 +20,7 @@ const ACTIVITY_COMPONENTS = {
   reading: ReadingBlock,
   mcqQuiz: McqQuizBlock,
   summary: SummaryBlock,
+  fillInBlank: FillInBlankBlock,
 };
 
 export default function ActivityRenderer({ activity }) {

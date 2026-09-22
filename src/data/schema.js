@@ -23,8 +23,8 @@
  */
 
 /**
- * @typedef {'goal' | 'explanation' | 'video' | 'vocabulary' | 'reading' | 'mcqQuiz' | 'summary'} ActivityType
- * V1 supports these 7 activity types. More (speaking, writing, matching, etc.)
+ * @typedef {'goal' | 'explanation' | 'video' | 'vocabulary' | 'reading' | 'mcqQuiz' | 'summary' | 'fillInBlank'} ActivityType
+ * V1 supports these 8 activity types. More (speaking, writing, matching, etc.)
  * can be added later by adding a new type + a new renderer component —
  * existing lessons and courses are unaffected.
  */
@@ -46,6 +46,7 @@
  * reading:      { title?: string, paragraphs: string[] }
  * mcqQuiz:      { questions: { id: string, question: string, options: string[], correctIndex: number, explanation?: string }[] }
  * summary:      { points: string[] }
+ * fillInBlank:  { prompt: string, answer: string, explanation?: string }
  */
 
 /**
