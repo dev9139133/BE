@@ -23,4 +23,11 @@ export const modules = [
     description: 'Shops, greetings, and small talk without the panic.',
     order: 1,
   },
+  {
+    id: 'building-basic-sentences',
+    courseId: 'english-foundations',
+    title: 'Building Basic Sentences',
+    description: 'The very first step: what makes a sentence, and how to build your own.',
+    order: 3,
+  },
 ];

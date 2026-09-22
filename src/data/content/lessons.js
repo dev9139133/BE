@@ -197,7 +197,7 @@ export const lessons = [
           ],
         },
       },
-      {
+           {
         id: 'act-4',
         type: 'mcqQuiz',
         content: {
@@ -208,6 +208,192 @@ export const lessons = [
               options: ['How much is this?', 'How is this much?', 'This much how?', 'Is much this how?'],
               correctIndex: 0,
             },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    id: 'words-to-sentences',
+    moduleId: 'building-basic-sentences',
+    title: 'From Words to Sentences',
+    description: 'What turns a word into a sentence, and how to build your first ones.',
+    order: 1,
+    estimatedMinutes: 11,
+    category: 'grammar',
+    activities: [
+      {
+        id: 'act-1',
+        type: 'goal',
+        content: {
+          text: 'By the end of this lesson, you will understand the difference between a word and a sentence, and be able to build simple English sentences using the Subject + Verb pattern — like "I work.", "She sings." and "They play."',
+        },
+      },
+      {
+        id: 'act-2',
+        type: 'explanation',
+        content: {
+          heading: 'A word is not a sentence',
+          body:
+            'Look at these words: school, coffee, plays.\n\nEach one is just a word. None of them tells you a complete message — who did what?\n\nNow look at this: Rahul plays.\n\nThat\u2019s different. It tells you exactly who (Rahul) and what he does (plays). A sentence communicates a complete message. A single word usually doesn\u2019t.',
+        },
+      },
+      {
+        id: 'act-3',
+        type: 'vocabulary',
+        content: {
+          words: [
+            { term: 'Subject', meaning: 'who or what the sentence is about', example: 'I work. (I is the subject)' },
+            { term: 'Verb', meaning: 'what the subject does', example: 'She sings. (sings is the verb)' },
+            { term: 'Subject + Verb', meaning: 'the simplest pattern for a complete English sentence', example: 'They play.' },
+          ],
+        },
+      },
+      {
+        id: 'act-4',
+        type: 'explanation',
+        content: {
+          heading: 'Word order matters',
+          body:
+            'English sentences follow a fixed order. The subject usually comes first, then the verb.\n\nI drink tea. \u2014 correct: subject (I) then verb (drink).\nDrink I tea. \u2014 incorrect order.\nTea drink I. \u2014 also incorrect.\n\nIn many languages, word order is flexible. In English, it isn\u2019t \u2014 the order itself carries meaning.',
+        },
+      },
+      {
+        id: 'act-5',
+        type: 'mcqQuiz',
+        content: {
+          questions: [
+            {
+              id: 'q1',
+              question: 'Put the words in the correct order: play / I',
+              options: ['Play I.', 'I play.', 'I. play', 'Play. I'],
+              correctIndex: 1,
+              explanation: 'Subject first, then verb: I + play.',
+            },
+            {
+              id: 'q2',
+              question: 'Put the words in the correct order: sings / She',
+              options: ['Sings she.', 'She sings.', 'She. sings', 'Sings. she'],
+              correctIndex: 1,
+              explanation: 'Subject first, then verb: She + sings.',
+            },
+            {
+              id: 'q3',
+              question: 'Put the words in the correct order: work / They',
+              options: ['Work they.', 'They work.', 'They. work', 'Work. they'],
+              correctIndex: 1,
+              explanation: 'Subject first, then verb: They + work.',
+            },
+            {
+              id: 'q4',
+              question: 'Put the words in the correct order: reads / Rahul',
+              options: ['Reads Rahul.', 'Rahul reads.', 'Rahul. reads', 'Reads. Rahul'],
+              correctIndex: 1,
+              explanation: 'Subject first, then verb: Rahul + reads.',
+            },
+          ],
+        },
+      },
+      {
+        id: 'act-6',
+        type: 'mcqQuiz',
+        content: {
+          questions: [
+            {
+              id: 'q1',
+              question: 'Is this a complete sentence? "I study."',
+              options: ['Complete sentence', 'Not a complete sentence'],
+              correctIndex: 0,
+              explanation: '"I study." has a subject (I) and a verb (study) \u2014 it\u2019s complete.',
+            },
+            {
+              id: 'q2',
+              question: 'Is this a complete sentence? "in the morning"',
+              options: ['Complete sentence', 'Not a complete sentence'],
+              correctIndex: 1,
+              explanation: 'There\u2019s no subject or verb here \u2014 just a time phrase.',
+            },
+            {
+              id: 'q3',
+              question: 'Is this a complete sentence? "She dances."',
+              options: ['Complete sentence', 'Not a complete sentence'],
+              correctIndex: 0,
+              explanation: 'Subject (She) + verb (dances) \u2014 complete.',
+            },
+            {
+              id: 'q4',
+              question: 'Is this a complete sentence? "my friend"',
+              options: ['Complete sentence', 'Not a complete sentence'],
+              correctIndex: 1,
+              explanation: 'This names someone but doesn\u2019t say what they do \u2014 no verb, so it\u2019s incomplete.',
+            },
+          ],
+        },
+      },
+      {
+        id: 'act-7',
+        type: 'fillInBlank',
+        content: {
+          prompt: 'I ______ tea every morning.',
+          answer: 'drink',
+          explanation: 'Subject (I) + verb (drink) \u2014 just like the example earlier in this lesson.',
+        },
+      },
+      {
+        id: 'act-8',
+        type: 'fillInBlank',
+        content: {
+          prompt: 'She ______ every Sunday.',
+          answer: 'sings',
+          explanation: 'Subject (She) + verb (sings) \u2014 the same pattern as "She sings."',
+        },
+      },
+      {
+        id: 'act-9',
+        type: 'reading',
+        content: {
+          title: 'About Riya',
+          paragraphs: ['My name is Riya. I study. I read every day.'],
+        },
+      },
+      {
+        id: 'act-10',
+        type: 'mcqQuiz',
+        content: {
+          questions: [
+            {
+              id: 'q1',
+              question: 'Who studies, according to the passage?',
+              options: ['Rahul', 'Riya', 'The teacher', 'Her friend'],
+              correctIndex: 1,
+            },
+            {
+              id: 'q2',
+              question: 'What does Riya do every day?',
+              options: ['She sings.', 'She reads.', 'She works.', 'She travels.'],
+              correctIndex: 1,
+            },
+          ],
+        },
+      },
+      {
+        id: 'act-11',
+        type: 'explanation',
+        content: {
+          heading: 'Your turn: Final challenge',
+          body:
+            'Now try it yourself. Say or write three simple sentences about you:\n\nI am ______.\nI ______.\nI like ______.\n\nThere\u2019s no single correct answer here \u2014 just practice building your own Subject + Verb sentences.',
+        },
+      },
+      {
+        id: 'act-12',
+        type: 'summary',
+        content: {
+          points: [
+            'A word is not necessarily a sentence.',
+            'A basic English sentence can use Subject + Verb.',
+            'English word order matters.',
+            'Next lesson: Subject + Verb + Object \u2014 sentences like "I drink tea."',
           ],
         },
       },
