@@ -19,12 +19,21 @@ export const lessons = [
         },
       },
       {
+        id: 'act-warmup-1',
+        type: 'explanation',
+        content: {
+          heading: 'Look and notice',
+          body:
+            'Read these two sentences:\n\nI work in Dasuya.\nShe works in Jalandhar.\n\nBoth describe something true every day — nothing has changed. But one verb looks different: works, not work.\n\nBefore you read the rule below, take a guess — why do you think there\u2019s an extra letter on works?',
+        },
+      },
+      {
         id: 'act-2',
         type: 'explanation',
         content: {
           heading: 'What is Present Simple?',
           body:
-            'We use Present Simple for things that are always true, or things that happen again and again — habits, routines, facts. For "I / you / we / they," the verb stays in its base form. For "he / she / it," we add -s or -es.\n\nExample: I work in Dasuya. She works in Jalandhar.',
+            'We use Present Simple for things that are always true, or things that happen again and again — habits, routines, facts. For "I / you / we / they," the verb stays in its base form. For "he / she / it," we add -s or -es.\n\nThat answers the warm-up above: it\u2019s works, not work, because the subject is she. And it isn\u2019t only -s \u2014 verbs like watch, wash, and go take -es: He watches cricket every weekend.',
         },
       },
       {
@@ -47,6 +56,15 @@ export const lessons = [
         },
       },
       {
+        id: 'act-fillblank-1',
+        type: 'fillInBlank',
+        content: {
+          prompt: 'She ___ to school every day.',
+          answer: 'goes',
+          explanation: 'Use "goes" because the subject is "she" — add -es to go for he / she / it.',
+        },
+      },
+      {
         id: 'act-5',
         type: 'mcqQuiz',
         content: {
@@ -65,6 +83,17 @@ export const lessons = [
               correctIndex: 2,
               explanation: '"Every day" signals a routine \u2014 Present Simple is the right choice.',
             },
+          ],
+        },
+      },
+      {
+        id: 'act-reading-1',
+        type: 'reading',
+        content: {
+          title: "Rohan's Morning",
+          paragraphs: [
+            'Rohan lives in Dasuya. He wakes up at six every morning. He drinks one cup of chai and then walks to college. He never skips breakfast — it is a habit he never breaks.',
+            "On Sundays, Rohan doesn't go to college. He relaxes and calls his family instead. His routine changes just a little, but Sunday is always simple and calm.",
           ],
         },
       },
