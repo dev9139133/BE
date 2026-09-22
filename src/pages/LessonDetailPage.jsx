@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
-import { getLessonById, getModuleWithCourse } from '../data/contentApi.js';
+import { getLessonById, getModuleWithCourse, getNextLesson } from '../data/contentApi.js';
 import ActivityRenderer from '../components/lesson/ActivityRenderer.jsx';
 import Tag from '../components/ui/Tag.jsx';
 import Button from '../components/ui/Button.jsx';
@@ -27,6 +27,7 @@ export default function LessonDetailPage() {
   }
 
   const moduleInfo = getModuleWithCourse(lesson.moduleId);
+  const nextLesson = getNextLesson(lesson.id);
   const total = lesson.activities.length;
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === total - 1;
@@ -80,7 +81,10 @@ export default function LessonDetailPage() {
         {!finished ? (
           <>
             <div className="mt-6">
-              <ActivityRenderer activity={lesson.activities[currentIndex]} />
+              <ActivityRenderer
+                key={lesson.activities[currentIndex].id}
+                activity={lesson.activities[currentIndex]}
+              />
             </div>
 
             <div className="mt-8 flex items-center gap-3">
@@ -118,18 +122,33 @@ export default function LessonDetailPage() {
               Lesson complete!
             </h2>
             <p className="mt-1.5 font-body text-base text-ink-soft">
-              You've finished this lesson. Great work!
+              Nice work. You've finished this lesson.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              {moduleInfo?.course && (
-                <Button to={`/courses/${moduleInfo.course.id}`} variant="primary">
-                  Back to {moduleInfo.course.title}
-                </Button>
+              {nextLesson ? (
+                <>
+                  <Button to={`/lessons/${nextLesson.id}`} variant="accent">
+                    Next Lesson &rarr;
+                  </Button>
+                  {moduleInfo?.course && (
+                    <Button to={`/courses/${moduleInfo.course.id}`} variant="ghost">
+                      Back to {moduleInfo.course.title}
+                    </Button>
+                  )}
+                </>
+              ) : (
+                <>
+                  {moduleInfo?.course && (
+                    <Button to={`/courses/${moduleInfo.course.id}`} variant="primary">
+                      Back to {moduleInfo.course.title}
+                    </Button>
+                  )}
+                  <Button to="/lessons" variant="ghost">
+                    Browse all lessons
+                  </Button>
+                </>
               )}
-              <Button to="/lessons" variant="ghost">
-                Browse all lessons
-              </Button>
             </div>
           </div>
         )}

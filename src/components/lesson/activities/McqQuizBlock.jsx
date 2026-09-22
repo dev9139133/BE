@@ -1,10 +1,16 @@
 import { useState } from 'react';
 
-function Question({ question, index }) {
+function Question({ question, index, onAnswer }) {
   const [selected, setSelected] = useState(null);
   const [checked, setChecked] = useState(false);
 
   const isCorrect = checked && selected === question.correctIndex;
+
+  const handleCheck = () => {
+    if (selected === null) return;
+    setChecked(true);
+    onAnswer(selected === question.correctIndex);
+  };
 
   return (
     <div className="rounded-card border border-ink/10 bg-white p-5">
@@ -57,7 +63,7 @@ function Question({ question, index }) {
 
       {!checked ? (
         <button
-          onClick={() => setChecked(true)}
+          onClick={handleCheck}
           disabled={selected === null}
           className="mt-4 rounded-pill bg-ink px-4 py-2 font-body text-sm font-semibold text-paper disabled:cursor-not-allowed disabled:opacity-40"
         >
@@ -81,7 +87,36 @@ function Question({ question, index }) {
   );
 }
 
+/** Short, encouraging feedback based on score — never judgmental. */
+function feedbackForScore(percentage) {
+  if (percentage >= 80) return 'Excellent work!';
+  if (percentage >= 60) return 'Good work! A little more practice will make this stronger.';
+  return 'Keep practicing. Review the lesson and try again.';
+}
+
 export default function McqQuizBlock({ content }) {
+  const total = content.questions.length;
+
+  // `attempt` changes on "Try Again," which changes each Question's key below
+  // and remounts them fresh — the simplest way to reset per-question state
+  // without lifting selected/checked out of Question.
+  const [attempt, setAttempt] = useState(0);
+  const [answeredCorrect, setAnsweredCorrect] = useState([]);
+
+  const answeredCount = answeredCorrect.length;
+  const allAnswered = total > 0 && answeredCount === total;
+  const correctCount = answeredCorrect.filter(Boolean).length;
+  const percentage = allAnswered ? Math.round((correctCount / total) * 100) : 0;
+
+  const handleAnswer = (isCorrect) => {
+    setAnsweredCorrect((prev) => [...prev, isCorrect]);
+  };
+
+  const handleTryAgain = () => {
+    setAnsweredCorrect([]);
+    setAttempt((a) => a + 1);
+  };
+
   return (
     <div>
       <p className="font-tag text-xs font-medium uppercase tracking-wide text-marigold-dark">
@@ -89,9 +124,40 @@ export default function McqQuizBlock({ content }) {
       </p>
       <div className="mt-3 space-y-4">
         {content.questions.map((q, i) => (
-          <Question key={q.id} question={q} index={i} />
+          <Question
+            key={`${q.id}-${attempt}`}
+            question={q}
+            index={i}
+            onAnswer={handleAnswer}
+          />
         ))}
       </div>
+
+      {allAnswered && (
+        <div className="mt-4 flex flex-col items-center rounded-card border border-marigold/30 bg-marigold-light px-6 py-8 text-center">
+          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-marigold-dark text-xl text-white">
+            &#10003;
+          </span>
+          <h3 className="mt-3 font-display text-lg font-semibold text-ink">
+            Quiz complete!
+          </h3>
+          <p className="mt-1 font-body text-2xl font-semibold text-ink">
+            {correctCount} / {total} correct
+          </p>
+          <p className="font-tag text-xs uppercase tracking-wide text-ink-faint">
+            {percentage}%
+          </p>
+          <p className="mt-3 max-w-xs font-body text-sm text-ink-soft">
+            {feedbackForScore(percentage)}
+          </p>
+          <button
+            onClick={handleTryAgain}
+            className="mt-4 rounded-pill border border-ink/15 bg-white px-4 py-2 font-body text-sm font-semibold text-ink transition-colors hover:border-ink/40"
+          >
+            Try Again
+          </button>
+        </div>
+      )}
     </div>
   );
 }

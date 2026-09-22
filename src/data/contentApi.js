@@ -74,3 +74,21 @@ export function getModuleWithCourse(moduleId) {
   const course = getCourseById(mod.courseId);
   return { ...mod, course };
 }
+
+/**
+ * Returns the lesson that comes right after the given one, within the same
+ * module, using the module's existing lesson `order`. Returns undefined if
+ * the lesson is the last one in its module (or doesn't exist) — callers
+ * must not assume a next lesson always exists.
+ * @returns {import('./schema.js').Lesson | undefined}
+ */
+export function getNextLesson(lessonId) {
+  const lesson = getLessonById(lessonId);
+  if (!lesson) return undefined;
+
+  const siblings = getLessonsByModule(lesson.moduleId);
+  const currentIndex = siblings.findIndex((l) => l.id === lessonId);
+  if (currentIndex === -1) return undefined;
+
+  return siblings[currentIndex + 1];
+}
